@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:online_attendance/app/modules/submit_attendance/views/submit_attendance_view.dart';
+import 'package:online_attendance/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -74,119 +76,124 @@ class HomeView extends GetView<HomeController> {
                   left: screenHeight * 0.019,
                   right: screenHeight * 0.019,
                 ),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  elevation: 3.0,
-                  shadowColor: Colors.grey,
-                  child: Container(
-                    height: screenHeight * 0.30,
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: screenHeight * 0.025,
-                                  top: screenHeight * 0.025
-                              ),
-                              child: Text('Store Id :',
-                                style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenHeight * 0.018
-                                ),),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right : screenHeight * 0.12,
-                                  top: screenHeight * 0.025
-                              ),
-                              child: Container(
-                                width: screenHeight * 0.10,
-                                child: Text(controller.storeList.value.data![index].id.toString(),
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      fontSize: screenHeight * 0.018,
-                                      color: Colors.grey
-                                  ),),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: screenHeight * 0.025,
-                                  top: screenHeight * 0.015
-                              ),
-                              child: Text('Store Name :',
-                                style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenHeight * 0.018
-                                ),),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right : screenHeight * 0.12,
-                                  top: screenHeight * 0.015
-                              ),
-                              child: Container(
-                                width: screenHeight * 0.10,
-                                child: Text(controller.storeList.value.data![index].name.toString(),
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                      fontSize: screenHeight * 0.018,
-                                      color: Colors.grey
-                                  ),),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: screenHeight * 0.025
-                              ),
-                              child: Text('Store Address :',
-                                style: TextStyle(
-                                    color: Colors.blueGrey,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: screenHeight * 0.018
-                                ),),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right : screenHeight * 0.12,
-                                  top: screenHeight * 0.025
-                              ),
-                              child: Container(
-                                width: screenHeight * 0.10,
-                                child: Text(controller.storeList.value.data![index].address.toString(),
-                                  overflow: TextOverflow.fade,
-                                  style: TextStyle(
-                                      fontSize: screenHeight * 0.018,
-                                      color: Colors.grey
-                                  ),),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: screenHeight * 0.015,)
-                      ],
+                child: GestureDetector(
+                  onTap: (){
+                    Get.toNamed(Routes.SUBMIT_ATTENDANCE);
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                  ),
+                    elevation: 3.0,
+                    shadowColor: Colors.grey,
+                    child: Container(
+                      height: screenHeight * 0.30,
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: screenHeight * 0.025,
+                                    top: screenHeight * 0.025
+                                ),
+                                child: Text('Store Id :',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: screenHeight * 0.018
+                                  ),),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right : screenHeight * 0.12,
+                                    top: screenHeight * 0.025
+                                ),
+                                child: Container(
+                                  width: screenHeight * 0.10,
+                                  child: Text(controller.storeList.value.data![index].id.toString(),
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        fontSize: screenHeight * 0.018,
+                                        color: Colors.grey
+                                    ),),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: screenHeight * 0.025,
+                                    top: screenHeight * 0.015
+                                ),
+                                child: Text('Store Name :',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: screenHeight * 0.018
+                                  ),),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right : screenHeight * 0.12,
+                                    top: screenHeight * 0.015
+                                ),
+                                child: Container(
+                                  width: screenHeight * 0.10,
+                                  child: Text(controller.storeList.value.data![index].name.toString(),
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                        fontSize: screenHeight * 0.018,
+                                        color: Colors.grey
+                                    ),),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    left: screenHeight * 0.025
+                                ),
+                                child: Text('Store Address :',
+                                  style: TextStyle(
+                                      color: Colors.blueGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: screenHeight * 0.018
+                                  ),),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right : screenHeight * 0.12,
+                                    top: screenHeight * 0.025
+                                ),
+                                child: Container(
+                                  width: screenHeight * 0.10,
+                                  child: Text(controller.storeList.value.data![index].address.toString(),
+                                    overflow: TextOverflow.fade,
+                                    style: TextStyle(
+                                        fontSize: screenHeight * 0.018,
+                                        color: Colors.grey
+                                    ),),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: screenHeight * 0.015,)
+                        ],
+                      ),
+                    ),
 
+                  ),
                 ),
               );
             }));
