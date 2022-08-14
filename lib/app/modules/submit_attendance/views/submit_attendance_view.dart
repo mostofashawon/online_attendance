@@ -161,7 +161,8 @@ class SubmitAttendanceView extends GetView<SubmitAttendanceController> {
                     child:ElevatedButton(
                         onPressed: () async {
                           await controller.submitAttendanceInfo();
-                          if( await controller.storeAddress() == true){
+                          print("response......"+controller.networkResponse.value.toString());
+                          if(controller.networkResponse.value == "Test data"){
                             Get.snackbar("Submitted",
                                 'Your Attendance has been Submitted',
                                 snackPosition: SnackPosition.BOTTOM);

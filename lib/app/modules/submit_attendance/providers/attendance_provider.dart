@@ -22,7 +22,7 @@ class AttendanceProvider extends GetConnect {
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      return true;
+      return jsonString.toString();
     } else {
       return null;
     }

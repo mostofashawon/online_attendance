@@ -24,6 +24,8 @@ class SubmitAttendanceController extends GetxController {
   final count = 0.obs;
 
   var isLoading = true.obs;
+  var networkResponse = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -104,7 +106,8 @@ class SubmitAttendanceController extends GetxController {
       isLoading(true);
       var response = await AttendanceProvider().postAttendance(
           userName, userId, latitude.toString(), longitude.toString(), requestId);
-      if ( response!= null && response == true) {
+      if ( response!= null && response == "Test data") {
+          networkResponse.value = response.toString();
            isLoading(false);
            return true;
          ;
