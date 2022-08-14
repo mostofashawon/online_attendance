@@ -1,5 +1,11 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../providers/attendance_provider.dart';
 
 class SubmitAttendanceController extends GetxController {
   //TODO: Implement SubmitAttendanceController
@@ -9,12 +15,23 @@ class SubmitAttendanceController extends GetxController {
   var userName = '';
   var userId = '';
 
+  Random random = new Random();
+  late int requestId;
+  var latitude = ''.obs;
+  var longitude = ''.obs;
+  late StreamSubscription<Position> streamSubscription;
+
   final count = 0.obs;
+
+  var isLoading = true.obs;
   @override
   void onInit() {
     super.onInit();
     userNameController = TextEditingController();
     idController = TextEditingController();
+    requestId = random.nextInt(100);
+    getLocation();
+
   }
 
   @override
@@ -26,6 +43,7 @@ class SubmitAttendanceController extends GetxController {
   void onClose() {
     userNameController.dispose();
     idController.dispose();
+    streamSubscription.cancel();
   }
   void increment() => count.value++;
 
@@ -49,8 +67,51 @@ class SubmitAttendanceController extends GetxController {
       return;
     }
     else{
-      // loginFormKey.currentState!.save();
-      print("feild fill up");
+      loginFormKey.currentState!.save();
+      getLocation();
+      storeAddress();
+    }
+  }
+
+  getLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    streamSubscription =
+        Geolocator.getPositionStream().listen((Position position) {
+          latitude.value = position.latitude.toString();
+          longitude.value = position.longitude.toString();
+        });
+  }
+
+  Future<dynamic> storeAddress() async {
+    try{
+      isLoading(true);
+      var response = await AttendanceProvider().postAttendance(
+          userName, userId, latitude.toString(), longitude.toString(), requestId);
+      if ( response!= null && response == true) {
+           isLoading(false);
+           return true;
+         ;
+      }
+    }
+    catch(e){
+      print(e.toString());
     }
   }
 }

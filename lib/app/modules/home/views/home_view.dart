@@ -60,12 +60,10 @@ class HomeView extends GetView<HomeController> {
       SizedBox(height: screenHeight * 0.025,),
       Obx(() {
         if(controller.isLoading.value == true) {
-          return Container(
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.blueGrey,
-                  ),
-                ),
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.blueGrey,
+            ),
           );
         }
         else return  Expanded(child: ListView.builder(
